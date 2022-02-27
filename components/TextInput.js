@@ -6,8 +6,6 @@ const TextInput = ({ content, index, dispatch }) => {
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef();
 
-  // console.log(content);
-
   // get the default value of input
   useEffect(() => {
     setInputValue(content);
