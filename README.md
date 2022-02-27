@@ -16,7 +16,7 @@ Following the requirements, the application would have 4 main actions:
   - Add the record of adding an element to the "past" array. Since there will be no changes to be made to the order of the app state, no other information is needed.
 - ADD_TEXT:
   - Changes the content of the corresponding "present" array's element.
-  - Add the record of changing the content of the element to the "past array. In order to redo the action, we need the index of the element as well as its content before modifying, these are saved within the record. Record(s) are added 300ms after the last key up event.
+  - Add the record of changing the content of the element to the "past array. In order to redo the action, we need the index of the element as well as its content before modifying, these are saved within the record. Record(s) are added 500ms after the last key up event.
 - UNDO/REDO:
   From the last element of the "past"/"future" array, we have 2 cases. The following procedures are of the UNDO action:
 

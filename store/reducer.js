@@ -105,6 +105,9 @@ const reducer = (state, action) => {
     case ACTION_TYPES.ADD_TEXT:
       const { currentValue, defaultValue, index } = action.payload;
 
+      // return if user only input space to input
+      if (currentValue.trim() === defaultValue.trim()) return { ...state };
+
       const newPresent = state.present.map((item) => {
         if (item.inputIndex !== index) return item;
 
