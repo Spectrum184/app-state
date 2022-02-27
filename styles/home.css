@@ -1,0 +1,57 @@
+.container {
+  padding: 0 2rem;
+}
+
+.main {
+  padding: 3rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn {
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  border-style: none;
+  border-radius: 3px;
+}
+
+.btn:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-add {
+  background-color: #3b82f6;
+}
+
+.btn-redo {
+  background-color: #22c55e;
+}
+
+.btn-undo {
+  margin: 0 10px;
+  background-color: #ef4444;
+}
+
+.content {
+  margin-top: 50px;
+}
+
+.content .list-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.content .list-input input {
+  padding: 5px;
+  margin: 5px 0;
+  outline: none;
+}

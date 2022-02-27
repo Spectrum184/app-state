@@ -1,34 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# APP STATE
 
-## Getting Started
+### 1. Requirement analysis, application design
 
-First, run the development server:
+For this application, React's useReducer and useContext is chosen to manage the app's state. Doing this will also allow logic handling to be excluded from component's code.
 
-```bash
-npm run dev
-# or
+Since the application requires rollback, we need to save the app's current state, as well as all past actions and future actions (in case user has already rolled back). As such, the main state includes 3 arrays, past, present and future.
+
+- The "present" array contains the app's current state. This array contains all the state of the input texts (index and content).
+- The "past" and "future" array records all the 'moves' that had been/will be made. All elements within have a type attribute to differentiate which type of 'move' had/will be made. Other attributes are described below.
+
+Following the requirements, the application would have 4 main actions:
+
+- ADD_INPUT:
+  - Add an extra element to the "present" array.
+  - Add the record of adding an element to the "past" array. Since there will be no changes to be made to the order of the app state, no other information is needed.
+- ADD_TEXT:
+  - Changes the content of the corresponding "present" array's element.
+  - Add the record of changing the content of the element to the "past array. In order to redo the action, we need the index of the element as well as its content before modifying, these are saved within the record. Record(s) are added 300ms after the last key up event.
+- UNDO/REDO:
+  From the last element of the "past"/"future" array, we have 2 cases. The following procedures are of the UNDO action:
+
+  - ADD_INPUT:
+    - "present" array: take out the last element.
+    - "past" array: take out the last element.
+    - "future" array: put in the element taken out of the "past" array.
+  - ADD_TEXT:
+    - "past" array: take out the last element.
+    - "present" array: modify the corresponding element's content with the content saved in the taken out element of the "past" array.
+    - "future" array: put in the element taken out of the "past" array.
+
+  All actions are reversed for REDO's case.
+
+### 2. Run App
+
+```
+install yarn
+cd <RootDirectory>
+yarn
 yarn dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
