@@ -1,4 +1,4 @@
-export const DEBOUNCE_TIME = 300; //ms
+export const DEBOUNCE_TIME = 500; //ms
 
 export const debounce = (fn) => {
   let timerId;

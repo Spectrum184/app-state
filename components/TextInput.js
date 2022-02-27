@@ -1,9 +1,12 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { debounceTextAction } from '../store/action';
 import { debounce } from '../utils/debounce';
 
 const TextInput = ({ content, index, dispatch }) => {
   const [inputValue, setInputValue] = useState('');
+  const inputRef = useRef();
+
+  // console.log(content);
 
   // get the default value of input
   useEffect(() => {
@@ -13,7 +16,7 @@ const TextInput = ({ content, index, dispatch }) => {
   //debounce on key up event
   const debouncedHandler = debounce(() =>
     debounceTextAction({
-      currentValue: inputValue,
+      currentValue: inputRef.current?.value,
       defaultValue: content,
       dispatch,
       index,
@@ -27,6 +30,7 @@ const TextInput = ({ content, index, dispatch }) => {
       onChange={(e) => setInputValue(e.target.value)}
       onKeyUp={debouncedHandler}
       placeholder="Input text!"
+      ref={inputRef}
     />
   );
 };
